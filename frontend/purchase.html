@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Medicine Purchase</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f7fb;
+margin:0;
+}
+
+.header{
+background:#1e293b;
+color:white;
+padding:15px 25px;
+font-size:22px;
+}
+
+.container{
+padding:30px;
+}
+
+input{
+padding:12px;
+margin:8px;
+width:250px;
+border:2px solid #e2e8f0;
+border-radius:8px;
+}
+
+button{
+padding:12px 20px;
+background:#16a34a;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+table{
+width:100%;
+background:white;
+border-collapse:collapse;
+margin-top:30px;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+📦 Medicine Purchase Entry
+</div>
+
+<div class="container">
+
+<h2>Add Medicine Stock</h2>
+
+<input id="name" placeholder="Medicine Name">
+
+<input id="barcode" placeholder="Barcode">
+
+<input id="quantity" placeholder="Quantity">
+
+<input id="purchase_price" placeholder="Purchase Price">
+
+<input id="selling_price" placeholder="Selling Price">
+
+<input id="expiry_date" type="date">
+
+<br>
+
+<button onclick="addMedicine()">
+Add Medicine
+</button>
+
+<h2>Inventory</h2>
+
+<table id="medicineTable">
+
+<tr>
+<th>Name</th>
+<th>Stock</th>
+<th>Purchase Price</th>
+<th>Selling Price</th>
+<th>Expiry</th>
+</tr>
+
+</table>
+
+</div>
+
+<script>
+
+async function addMedicine(){
+
+let data={
+
+name:document.getElementById("name").value,
+barcode:document.getElementById("barcode").value,
+quantity:parseInt(document.getElementById("quantity").value),
+purchase_price:parseFloat(document.getElementById("purchase_price").value),
+selling_price:parseFloat(document.getElementById("selling_price").value),
+expiry_date:document.getElementById("expiry_date").value
+
+}
+
+await fetch("http://127.0.0.1:8010/medicines",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+
+alert("Medicine Added")
+
+loadMedicines()
+
+}
+
+
+async function loadMedicines(){
+
+let response=await fetch("http://127.0.0.1:8010/medicines")
+
+let medicines=await response.json()
+
+let table=document.getElementById("medicineTable")
+
+table.innerHTML=`
+<tr>
+<th>Name</th>
+<th>Stock</th>
+<th>Purchase Price</th>
+<th>Selling Price</th>
+<th>Expiry</th>
+</tr>
+`
+
+medicines.forEach(m=>{
+
+table.innerHTML+=`
+<tr>
+<td>${m.name}</td>
+<td>${m.quantity}</td>
+<td>${m.purchase_price}</td>
+<td>${m.selling_price}</td>
+<td>${m.expiry_date}</td>
+</tr>
+`
+
+})
+
+}
+
+loadMedicines()
+
+</script>
+
+</body>
+</html>

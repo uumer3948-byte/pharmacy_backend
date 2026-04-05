@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<h2>📊 Pharmacy Dashboard</h2>
+
+<div class="dashboardGrid">
+
+<div class="dashboardCard">
+<h3>Today's Sales</h3>
+<h2 id="todaySales">0</h2>
+</div>
+
+<div class="dashboardCard">
+<h3>Total Medicines</h3>
+<h2 id="totalMeds">0</h2>
+</div>
+
+<div class="dashboardCard">
+<h3>Low Stock</h3>
+<h2 id="lowStock">0</h2>
+</div>
+
+<div class="dashboardCard">
+<h3>Expiring Soon</h3>
+<h2 id="expiryAlert">0</h2>
+</div>
+
+</div>
+
+<div class="chartBox">
+
+<canvas id="salesChart"></canvas>
+
+</div>
+
+<div class="alertBox">
+
+<h3>⚠ Low Stock Medicines</h3>
+
+<div id="lowStockList"></div>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

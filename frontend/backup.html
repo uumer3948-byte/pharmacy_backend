@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Backup</title>
+
+<style>
+body{
+font-family:Arial;
+padding:50px;
+text-align:center;
+}
+button{
+padding:15px;
+background:green;
+color:white;
+border:none;
+border-radius:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>💾 Database Backup</h2>
+
+<button onclick="backup()">Create Backup</button>
+
+<p id="msg"></p>
+
+<script>
+
+async function backup(){
+
+let res = await fetch("http://127.0.0.1:8010/backup")
+let data = await res.json()
+
+document.getElementById("msg").innerText = data.message
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Pharmacy POS</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f4f6f8;
+}
+
+.header{
+background:#2c3e50;
+color:white;
+padding:15px;
+font-size:20px;
+}
+
+.container{
+display:flex;
+height:90vh;
+}
+
+.left{
+width:60%;
+padding:20px;
+}
+
+.right{
+width:40%;
+background:white;
+padding:20px;
+border-left:1px solid #ddd;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-bottom:15px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+
+button{
+padding:8px 12px;
+border:none;
+background:#3498db;
+color:white;
+cursor:pointer;
+}
+
+.checkout{
+background:#27ae60;
+width:100%;
+margin-top:15px;
+font-size:18px;
+}
+
+.total{
+font-size:22px;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+💊 Pharmacy POS System
+</div>
+
+<div class="container">
+
+<div class="left">
+
+<input
+id="searchBox"
+placeholder="Search medicine..."
+onkeyup="searchMedicine()"
+/>
+
+<input
+id="barcodeBox"
+placeholder="Scan barcode..."
+onkeypress="barcodeScan(event)"
+/>
+
+<table id="medicineTable">
+
+<tr>
+<th>Medicine</th>
+<th>Stock</th>
+<th>Price</th>
+<th></th>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="right">
+
+<h2>Cart</h2>
+
+<table id="cartTable">
+
+<tr>
+<th>Medicine</th>
+<th>Qty</th>
+<th>Total</th>
+</tr>
+
+</table>
+
+<div class="total">
+Total: ₹ <span id="totalAmount">0</span>
+</div>
+
+<button class="checkout" onclick="checkout()">
+Checkout
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let cart=[]
+
+async function searchMedicine(){
+
+let query=document.getElementById("searchBox").value
+
+if(query.length<1) return
+
+let response=await fetch(
+"http://127.0.0.1:8010/medicines/search?query="+query
+)
+
+let medicines=await response.json()
+
+let table=document.getElementById("medicineTable")
+
+table.innerHTML=`
+<tr>
+<th>Medicine</th>
+<th>Stock</th>
+<th>Price</th>
+<th></th>
+</tr>
+`
+
+medicines.forEach(m=>{
+
+table.innerHTML+=`
+<tr>
+<td>${m.name}</td>
+<td>${m.quantity}</td>
+<td>${m.selling_price}</td>
+<td>
+<button onclick="addToCart(${m.id},'${m.name}',${m.selling_price})">
+Add
+</button>
+</td>
+</tr>
+`
+
+})
+
+}
+
+
+async function barcodeScan(event){
+
+if(event.key==="Enter"){
+
+let barcode=document.getElementById("barcodeBox").value
+
+let response=await fetch(
+"http://127.0.0.1:8010/medicines/barcode/"+barcode
+)
+
+let medicine=await response.json()
+
+if(medicine.error){
+
+alert("Medicine not found")
+return
+}
+
+addToCart(
+medicine.id,
+medicine.name,
+medicine.selling_price
+)
+
+document.getElementById("barcodeBox").value=""
+
+}
+
+}
+
+
+function addToCart(id,name,price){
+
+let existing=cart.find(i=>i.medicine_id===id)
+
+if(existing){
+
+existing.quantity+=1
+
+}else{
+
+cart.push({
+medicine_id:id,
+name:name,
+price:price,
+quantity:1
+})
+
+}
+
+updateCart()
+
+}
+
+
+function updateCart(){
+
+let table=document.getElementById("cartTable")
+
+table.innerHTML=`
+<tr>
+<th>Medicine</th>
+<th>Qty</th>
+<th>Total</th>
+</tr>
+`
+
+let total=0
+
+cart.forEach(item=>{
+
+let itemTotal=item.price*item.quantity
+
+total+=itemTotal
+
+table.innerHTML+=`
+<tr>
+<td>${item.name}</td>
+<td>${item.quantity}</td>
+<td>${itemTotal}</td>
+</tr>
+`
+
+})
+
+document.getElementById("totalAmount").innerText=total
+
+}
+
+
+async function checkout(){
+
+let response=await fetch(
+"http://127.0.0.1:8010/sale",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+items:cart,
+payment_method:"cash"
+})
+}
+)
+
+let data=await response.json()
+
+alert("Sale completed. Total ₹"+data.total)
+
+cart=[]
+
+updateCart()
+
+}
+
+</script>
+
+</body>
+</html>

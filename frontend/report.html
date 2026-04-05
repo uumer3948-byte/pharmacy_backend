@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Sales Report</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f7fb;
+margin:0;
+}
+
+.header{
+background:#1e293b;
+color:white;
+padding:15px 25px;
+font-size:22px;
+}
+
+.container{
+padding:30px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+.card h3{
+margin:0;
+font-size:14px;
+color:#555;
+}
+
+.card p{
+font-size:24px;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+💰 Sales & Profit Report
+</div>
+
+<div class="container">
+
+<div class="cards">
+
+<div class="card">
+<h3>Today's Revenue</h3>
+<p id="revenue">₹0</p>
+</div>
+
+<div class="card">
+<h3>Today's Profit</h3>
+<p id="profit">₹0</p>
+</div>
+
+<div class="card">
+<h3>Total Sales</h3>
+<p id="sales">0</p>
+</div>
+
+<div class="card">
+<h3>Medicines Sold</h3>
+<p id="sold">0</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+async function loadReport(){
+
+let response = await fetch("http://127.0.0.1:8010/report")
+
+let data = await response.json()
+
+document.getElementById("revenue").innerText = "₹"+data.today_revenue
+document.getElementById("profit").innerText = "₹"+data.today_profit
+document.getElementById("sales").innerText = data.total_sales
+document.getElementById("sold").innerText = data.medicines_sold
+
+}
+
+loadReport()
+
+</script>
+
+</body>
+</html>

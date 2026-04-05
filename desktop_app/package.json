@@ -1,0 +1,31 @@
+{
+  "name": "pharmacy-pos",
+  "version": "1.0.0",
+  "description": "Pharmacy POS Software",
+  "main": "main.js",
+  "author": "Umar",
+  "license": "MIT",
+
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.6.0"
+  },
+
+  "build": {
+    "appId": "com.umar.pharmacy",
+    "productName": "PharmacyPOS",
+
+    "mac": {
+      "target": "dmg"
+    },
+
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

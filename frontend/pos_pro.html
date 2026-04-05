@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" href="css/pos.css">
+<link rel="stylesheet" href="css/components.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<h2>💊 POS Billing</h2>
+
+<div class="posContainer">
+
+    <div class="posContainer">
+
+        <div class="products">
+        
+        <h2>💊 POS Billing</h2>
+        
+        <button onclick="openAIScanner()">🤖 AI Scan Medicine</button>
+        
+        <input
+        type="file"
+        id="aiImageUpload"
+        accept="image/*"
+        capture="environment"
+        style="display:none"
+        >
+        
+        <input id="searchInput" class="searchBox" placeholder="Search medicine">
+        
+        <div id="productsGrid"></div>
+        
+        </div>
+        
+        <div id="cartComponent"></div>
+        
+        </div>
+
+<div id="cartComponent"></div>
+
+</div>
+
+<div id="modalComponent"></div>
+<div id="receiptComponent"></div>
+
+<script src="js/components.js"></script>
+<script src="js/pos.js"></script>
+
+<script>
+
+loadComponent("cartComponent","components/cart.html")
+loadComponent("modalComponent","components/modals.html")
+loadComponent("receiptComponent","components/receipt.html")
+
+</script>
+
+</body>
+</html>

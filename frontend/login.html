@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Staff Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f7fb;
+margin:0;
+}
+
+.container{
+width:350px;
+margin:120px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:2px solid #e2e8f0;
+border-radius:8px;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+background:#16a34a;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Staff Login</h2>
+
+<input id="username" placeholder="Username">
+
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+</div>
+
+<script>
+
+async function login(){
+
+let data={
+
+username:document.getElementById("username").value,
+password:document.getElementById("password").value
+
+}
+
+let response = await fetch("http://127.0.0.1:8010/staff/login",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+
+let result = await response.json()
+
+if(result.error){
+
+alert("Invalid Login")
+
+}else{
+
+localStorage.setItem("staff_id",result.user_id)
+
+alert("Login Successful")
+
+window.location.href="/frontend/pos_pro.html"
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

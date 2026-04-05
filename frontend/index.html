@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>PharmacyOS</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">💊 PharmacyOS</div>
+
+<div class="nav">
+
+<button onclick="loadPage('pos_pro.html')">POS Billing</button>
+
+<button onclick="loadPage('medicines.html')">Medicines</button>
+
+<button onclick="loadPage('customers.html')">Customers</button>
+
+<button onclick="loadPage('dashboard.html')">Dashboard</button>
+
+<button onclick="loadPage('report.html')">Reports</button>
+
+<button onclick="loadPage('backup.html')">Backup</button>
+
+</div>
+
+</div>
+
+
+<div class="main">
+
+<div class="topbar">
+
+<div>Pharmacy Management System</div>
+
+<div>Admin</div>
+
+</div>
+
+<div class="content">
+
+<iframe id="frame" src="dashboard.html"></iframe>
+
+</div>
+
+</div>
+
+
+<script>
+
+function loadPage(page){
+document.getElementById("frame").src = page
+}
+
+</script>
+
+</body>
+</html>

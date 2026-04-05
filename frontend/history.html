@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Prescription History</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f7fb;
+margin:0;
+}
+
+.header{
+background:#1e293b;
+color:white;
+padding:15px 25px;
+font-size:22px;
+}
+
+.container{
+padding:30px;
+}
+
+input{
+padding:12px;
+border:2px solid #e2e8f0;
+border-radius:8px;
+}
+
+button{
+padding:12px 20px;
+background:#16a34a;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.card{
+background:white;
+padding:15px;
+margin-top:15px;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+📋 Prescription History
+</div>
+
+<div class="container">
+
+<input id="customerId" placeholder="Enter Customer ID">
+
+<button onclick="loadHistory()">Load History</button>
+
+<div id="history"></div>
+
+</div>
+
+<script>
+
+async function loadHistory(){
+
+let id = document.getElementById("customerId").value
+
+let response = await fetch("http://127.0.0.1:8010/history/"+id)
+
+let data = await response.json()
+
+let container = document.getElementById("history")
+
+container.innerHTML=""
+
+data.forEach(s=>{
+
+let html = `<div class="card">
+<b>Date:</b> ${s.date}<br><br>`
+
+s.items.forEach(i=>{
+
+html += `${i.name} (Qty: ${i.quantity})<br>`
+
+})
+
+html += `<br>
+<button onclick='repeatSale(${JSON.stringify(s.items)})'>
+Repeat Prescription
+</button>
+</div>`
+
+container.innerHTML += html
+
+})
+
+}
+
+function repeatSale(items){
+
+localStorage.setItem("repeat_cart", JSON.stringify(items))
+
+alert("Open POS to complete sale")
+
+}
+
+</script>
+
+</body>
+</html>
