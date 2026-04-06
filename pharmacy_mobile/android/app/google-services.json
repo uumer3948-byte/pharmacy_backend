@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "594421135780",
+    "project_id": "fanar-pharmacy-solution",
+    "storage_bucket": "fanar-pharmacy-solution.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594421135780:android:ae6f740ac38ba6f0b6e931",
+        "android_client_info": {
+          "package_name": "com.example.pharmacy_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwEZgzBdX74xuCozDTXsNHN3MPEBg1akE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594421135780:android:a176094a21bd049cb6e931",
+        "android_client_info": {
+          "package_name": "com.fanar.fanarpharmacy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwEZgzBdX74xuCozDTXsNHN3MPEBg1akE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
