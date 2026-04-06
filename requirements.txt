@@ -1,6 +1,5 @@
-flask
-flask-cors
-mysql-connector-python
-google-generativeai
+fastapi
 uvicorn
-gunicorn
+python-multipart
+google-generativeai
+mysql-connector-python
