@@ -1,7 +1,7 @@
+google-genai
 fastapi
 uvicorn
 python-multipart
-google-genai
 Pillow
 mysql-connector-python
 sqlalchemy

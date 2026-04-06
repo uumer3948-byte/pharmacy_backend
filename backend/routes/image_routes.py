@@ -1,5 +1,4 @@
-from fastapi import APIRouter, UploadFile, File
-import google.generativeai as genai
+from google import genai  # Correct for 'google-genai' library
 import os
 from PIL import Image
 import io
