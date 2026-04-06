@@ -1,9 +1,10 @@
-from google import genai  # Correct for 'google-genai' library
+from fastapi import APIRouter, UploadFile, File, HTTPException # <--- ADD APIRouter here
+from google import genai
 import os
 from PIL import Image
 import io
 
-router = APIRouter()
+router = APIRouter() # Now this will work!
 
 # Setup Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
