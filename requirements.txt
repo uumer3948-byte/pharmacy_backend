@@ -4,3 +4,6 @@ python-multipart
 google-generativeai
 mysql-connector-python
 sqlalchemy
+passlib[bcrypt]
+python-jose[cryptography]
+python-dotenv
